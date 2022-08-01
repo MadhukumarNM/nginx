@@ -1,0 +1,37 @@
+---
+kind: "Deployment"
+apiVersion: "v1"
+metadata:
+  annotations: {}
+  name: "deals.test"
+  labels:
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+  selector:
+  strategy:
+    type: "RollingUpdate"
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      annotations: {}
+      labels:
+    spec:
+      terminationGracePeriodSeconds: 30
+      nodeSelector: {}
+      containers:
+      - name: "deals"
+        image: "registry-v2.nirmata.io/nirmata/deals:2.1.42"
+        command: []
+        args: []
+        env:
+        - name: "key1"
+          value : "value1"
+        - name: "key2"
+          value: "value2"
+        ports:
+        - name: "deals"
+          containerPort: 8080
+          protocol: "TCP"
